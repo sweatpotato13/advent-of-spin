@@ -1,0 +1,14 @@
+spin_version = "1"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+name = "challenge"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "challenge"
+source = "target/wasm32-wasi/release/challenge.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"

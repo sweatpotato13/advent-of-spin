@@ -1,0 +1,36 @@
+spin_version = "1"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+name = "challenge"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "handle_404"
+source = "handle_404/target/wasm32-wasi/release/handle_404.wasm"
+allowed_http_hosts = ["insecure:allow-all"]
+[component.trigger]
+route = "/"
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "handle_404"
+
+[[component]]
+id = "lowercase"
+source = "lowercase/target/wasm32-wasi/release/lowercase.wasm"
+allowed_http_hosts = ["insecure:allow-all"]
+[component.trigger]
+route = "/lowercase"
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "lowercase"
+
+[[component]]
+id = "hello"
+source = "hello/target/wasm32-wasi/release/hello.wasm"
+allowed_http_hosts = ["insecure:allow-all"]
+[component.trigger]
+route = "/hello/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "hello"
