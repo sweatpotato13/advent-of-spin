@@ -11,6 +11,5 @@ My solution is done with rust & wasm
 -   [Challenge 3](./CHALLENGE-3/README.md)
 -   [Challenge 4](./CHALLENGE-4/README.md)
 -   [Challenge 5](./CHALLENGE-5/README.md)
-<!--
 -   [Challenge 6](./CHALLENGE-6/README.md)
--   [Challenge 7](./CHALLENGE-7/README.md) -->
+-   [Challenge 7](./CHALLENGE-7/README.md)
