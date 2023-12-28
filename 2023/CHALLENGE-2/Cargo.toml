@@ -1,0 +1,19 @@
+[package]
+name = "challenge"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = [ "cdylib" ]
+
+[dependencies]
+anyhow = "1"
+http = "0.2"
+spin-sdk = { git = "https://github.com/fermyon/spin", tag = "v2.0.1" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_urlencoded = "0.7"
+
+[workspace]
