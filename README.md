@@ -18,4 +18,8 @@ My solution is done with rust & wasm
 
 ### 2023
 
--   [Challenge 1](./2023/CHALLENGE-1/README.md)
+-   [Challenge 1](./2023/CHALLENGE-1/README.md)-   [Challenge 2](./2023/CHALLENGE-2/README.md)-   [Challenge 3](./2023/CHALLENGE-3/README.md)-   [Challenge 4](./2023/CHALLENGE-4/README.md)
+
+### 2024
+
+-   [Challenge 1](./2024/CHALLENGE-1/README.md)

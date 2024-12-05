@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      background-color: #f9f9f9;
+      position: relative;
+    }
+
+    #background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+
+    #content {
+      z-index: 1;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #wishlists {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    #wishlists div {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #ffffffdd;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Image -->
+  <img id="background-image" src="https://i.ibb.co/PtSRCMS/aa.jpg" alt="Christmas Background">
+
+  <!-- Main Content -->
+  <div id="content">
+    <h1>Wishlist</h1>
+    <form id="wishlist-form">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="items" placeholder="Your Wishlist Items (comma-separated)" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="wishlists"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('wishlist-form');
+    const wishlistsDiv = document.getElementById('wishlists');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const items = document.getElementById('items').value.split(',');
+
+      await fetch('/api/wishlists', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, items }),
+      });
+
+      loadWishlists();
+    });
+
+    async function loadWishlists() {
+      const res = await fetch('/api/wishlists');
+      const wishlists = await res.json();
+      wishlistsDiv.innerHTML = wishlists
+        .map(wishlist => `
+          <div>
+            <h3>${wishlist.name}</h3>
+            <p>${wishlist.items.join(', ')}</p>
+          </div>
+        `)
+        .join('');
+    }
+
+    loadWishlists();
+  </script>
+</body>
+</html>

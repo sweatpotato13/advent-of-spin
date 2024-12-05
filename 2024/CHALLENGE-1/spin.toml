@@ -1,0 +1,28 @@
+spin_manifest_version = 2
+
+[application]
+name = "challenge1"
+version = "0.1.0"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/index.html"
+component = "fileserver"
+
+[[trigger.http]]
+route = "/api/wishlists/..."
+component = "challenge1"
+
+[component.challenge1]
+source = "target/wasm32-wasi/release/challenge1.wasm"
+allowed_outbound_hosts = ["http://*:*", "https://*:*", "http://self"]
+key_value_stores = ["default"]
+
+[component.challenge1.build]
+command = "cargo build --target wasm32-wasi --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
+
+[component.fileserver]
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+files = [{ source = "assets", destination = "/" }]
