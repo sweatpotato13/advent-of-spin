@@ -1,0 +1,5 @@
+package local:scoring;
+
+world scoring {
+  export scoring: func(name: string) -> u32;
+}

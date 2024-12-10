@@ -1,0 +1,1 @@
+jco componentize scoring.js -w scoring.wit -o scoring.component.wasm
