@@ -1,0 +1,9 @@
+package local:scoring;
+
+interface scoring {
+    scoring: func(name: string) -> u32;
+}
+
+world component {
+    export scoring;
+}

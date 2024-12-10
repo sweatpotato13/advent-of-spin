@@ -1,0 +1,18 @@
+[package]
+name = "challenge2"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = [ "cdylib" ]
+
+[dependencies]
+anyhow = "1"
+http = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0.133"
+spin-sdk = "3.0.1"
+wit-bindgen = "0.34.0"
+urlencoding = "2.1.3"

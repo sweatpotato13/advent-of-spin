@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Naughty or Nice</title>
+</head>
+<body>
+  <h1>Naughty or Nice Checker</h1>
+  <input type="text" id="nameInput" placeholder="Enter name">
+  <button onclick="checkScore()">Check Score</button>
+  <p id="result"></p>
+
+  <script>
+    async function checkScore() {
+      const name = document.getElementById('nameInput').value;
+      const response = await fetch(`/api/naughty-or-nice/${encodeURIComponent(name)}`);
+      const data = await response.json();
+      document.getElementById('result').textContent = `${data.name} is scored: ${data.score}`;
+    }
+  </script>
+</body>
+</html>
