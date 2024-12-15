@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use spin_sdk::http::Method;
-use spin_sdk::http::StatusCode;
 use spin_sdk::http::{IntoResponse, Request, Response};
 use spin_sdk::http_component;
 use spin_sdk::key_value::Store;
