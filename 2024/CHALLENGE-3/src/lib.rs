@@ -15,7 +15,8 @@ struct SuggestionsRequest {
 #[derive(Debug, Serialize, Deserialize)]
 struct SuggestionsResonse {
     name: String,
-    suggestions: String,
+    #[warn(non_snake_case)]
+    giftSuggestions: String,
 }
 
 #[http_component]
@@ -37,7 +38,7 @@ fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
             .unwrap();
             let json_body = SuggestionsResonse {
                 name: gift_suggestions.clone().name,
-                suggestions: gift_suggestions.clone().suggestions,
+                giftSuggestions: gift_suggestions.clone().suggestions,
             };
             (200, serde_json::to_vec(&json_body).unwrap())
         }
