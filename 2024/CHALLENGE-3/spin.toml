@@ -1,0 +1,32 @@
+spin_manifest_version = 2
+
+[application]
+name = "challenge3"
+version = "0.1.0"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "fileserver"
+
+[[trigger.http]]
+route = "/api/generate-gift-suggestions/..."
+component = "challenge3"
+
+[component.challenge3]
+source = "target/wasm32-wasi/release/challenge3.wasm"
+allowed_outbound_hosts = ["http://*:*", "https://*:*", "http://self"]
+ai_models = ["llama2-chat"]
+dependencies_inherit_configuration = true
+
+[component.challenge3.build]
+command = "cargo build --target wasm32-wasi --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
+
+[component.challenge3.dependencies]
+"components:advent-of-spin/generator@0.1.0" = { path = "./gift-suggestions-generator.wasm" }
+
+[component.fileserver]
+source = { url = "https://github.com/fermyon/spin-fileserver/releases/download/v0.1.0/spin_static_fs.wasm", digest = "sha256:96c76d9af86420b39eb6cd7be5550e3cb5d4cc4de572ce0fd1f6a29471536cb4" }
+files = [{ source = "assets", destination = "/" }]

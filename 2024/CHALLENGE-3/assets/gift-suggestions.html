@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Suggestions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #result {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎁 Gift Suggestions</h1>
+    <form id="giftForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter name" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter age" required>
+
+        <label for="likes">Likes/Interests:</label>
+        <input type="text" id="likes" placeholder="e.g., Programming, Sports" required>
+
+        <button type="submit">Get Gift Suggestions</button>
+    </form>
+
+    <div id="result" hidden>
+        <h2>Gift Suggestions for <span id="childName"></span></h2>
+        <p id="suggestions"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("giftForm");
+        const resultDiv = document.getElementById("result");
+        const childNameSpan = document.getElementById("childName");
+        const suggestionsParagraph = document.getElementById("suggestions");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            // 폼에서 데이터 가져오기
+            const name = document.getElementById("name").value;
+            const age = parseInt(document.getElementById("age").value);
+            const likes = document.getElementById("likes").value;
+
+            // API 요청
+            try {
+                const response = await fetch("/api/generate-gift-suggestions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, age, likes })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // 결과 표시
+                childNameSpan.textContent = name;
+                suggestionsParagraph.textContent = data.suggestions;
+                resultDiv.hidden = false;
+            } catch (error) {
+                console.error("Error fetching gift suggestions:", error);
+                alert("Failed to fetch gift suggestions. Please try again later.");
+            }
+        });
+    </script>
+</body>
+</html>
