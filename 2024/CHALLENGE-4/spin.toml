@@ -1,0 +1,18 @@
+spin_manifest_version = 2
+
+[application]
+name = "challenge4"
+version = "0.1.0"
+authors = ["Cute_Wisp <sweatpotato13@gmail.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/api/my"
+component = "challenge4"
+
+[component.challenge4]
+source = "target/wasm32-wasip1/release/challenge4.wasm"
+allowed_outbound_hosts = []
+[component.challenge4.build]
+command = "cargo build --target wasm32-wasip1 --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
